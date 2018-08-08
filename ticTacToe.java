@@ -12,7 +12,7 @@ public class ticTacToe{
     }
 
     public static void init(){
-        String[] botNames = new String[]{"Twiki", "Hal", "Artoo", "Optimus", "Johnny", "Marvin"};
+        String[] botNames = new String[]{"Twiki", "Hal", "Artoo", "Optimus", "Johnny", "Marvin", "Robbie"};
         Scanner s = new Scanner(System.in);
         System.out.println("Enter number of human players");
         int playerCount = s.nextInt();
@@ -73,8 +73,8 @@ public class ticTacToe{
         System.out.println(playerList[whoseTurn].getName() + " goes first");
         while(winner != true){
             if(playerList[whoseTurn].getHuman() == true){
-             Scanner s = new Scanner(System.in).useDelimiter("\\s");
-             System.out.println("Enter your pick as a row followed by a column. Example: 2 2");
+                Scanner s = new Scanner(System.in).useDelimiter("\\D*");
+                System.out.println("Enter your pick as a row followed by a column. Example: 2 2");
                 int row = s.nextInt();
                 int column = s.nextInt();
                 if(row > 0 && row <=3 && column > 0 && column <=3){
