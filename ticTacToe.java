@@ -59,15 +59,61 @@ public class ticTacToe{
             }else{
                 System.out.println("Nice try, bucko! Somebody's in that spot.");
             }
-            if(checkWinner() == "X" || checkWinner() == "O"){
+            if(checkWinner() == "X" || checkWinner() == "O" || checkWinner() == "Tie"){
                 winner = true;
                 s.close();
             }
         }
+        if(checkWinner() == "Tie"){
+            System.out.println("It's a tie!");
+        }
+        else{
+            System.out.println(checkWinner() + " is the winner!");
+        }
     }
 
     public static String checkWinner(){
-        
-        return null;
+        int counter = 0;
+        for(int i = 0; i < 3; ++i){
+            for(int j = 0; j < 3; ++j){
+                if(boardArray[i][j] == "X"){
+                    ++counter;
+                }
+            }
+            if(counter == 3){
+                return "X";
+            }else
+            if(counter == 0){
+                return "Y";
+            }else{
+                counter = 0;
+            }
+        }
+        for(int j = 0; j < 3; ++j){
+            for(int i = 0; i < 3; ++i){
+                if(boardArray[i][j] == "X"){
+                    ++counter;
+                }
+            }
+            if(counter == 3){
+                return "X";
+            }else
+            if(counter == 0){
+                return "Y";
+            }else{
+                counter = 0;
+            }
+        }
+        if((boardArray[0][0] == boardArray[1][1] && boardArray[0][0] == boardArray[2][2]) || (boardArray[0][2] == boardArray[1][1] && boardArray[0][2] == boardArray[2][0])){
+            return boardArray[1][1];
+        }
+        for(int i = 0; i < 3; ++i){
+            for(int j = 0; j < 3; ++j){
+                if(boardArray[i][j] == " "){
+                    return null;
+                }
+            }
+        }
+        return "Tie";
     }
 }
