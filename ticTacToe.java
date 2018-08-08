@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+//TODO: Play computer
+//TODO: Choose which player goes first
+
 public class ticTacToe{
 
     static String[][] boardArray = new String[4][4];
@@ -48,20 +51,24 @@ public class ticTacToe{
             System.out.println("Enter your pick as a row followed by a column. Example: 2 2");
             int row = s.nextInt();
             int column = s.nextInt();
-            if(boardArray[column][row] == " "){
-                boardArray[column][row] = turn[whoseTurn];
-                if(whoseTurn == 0){
-                    ++whoseTurn;
+            if(row > 0 && row <=3 && column > 0 && column <=3){
+                if(boardArray[column - 1][row - 1] == " "){
+                    boardArray[column - 1][row - 1] = turn[whoseTurn];
+                    if(whoseTurn == 0){
+                        ++whoseTurn;
+                    }else{
+                        --whoseTurn;
+                    }
+                    printBoard();
                 }else{
-                    --whoseTurn;
+                    System.out.println("Nice try, bucko! Somebody's in that spot.");
                 }
-                printBoard();
+                if(checkWinner() == "X" || checkWinner() == "O" || checkWinner() == "Tie"){
+                    winner = true;
+                    s.close();
+                }
             }else{
-                System.out.println("Nice try, bucko! Somebody's in that spot.");
-            }
-            if(checkWinner() == "X" || checkWinner() == "O" || checkWinner() == "Tie"){
-                winner = true;
-                s.close();
+                System.out.println("Oops! That's not a proper coordinate.");
             }
         }
         if(checkWinner() == "Tie"){
@@ -78,13 +85,16 @@ public class ticTacToe{
             for(int j = 0; j < 3; ++j){
                 if(boardArray[i][j] == "X"){
                     ++counter;
+                }else
+                if(boardArray[i][j] == "O"){
+                    counter += 4;
                 }
             }
             if(counter == 3){
                 return "X";
             }else
-            if(counter == 0){
-                return "Y";
+            if(counter == 12){
+                return "O";
             }else{
                 counter = 0;
             }
@@ -93,13 +103,16 @@ public class ticTacToe{
             for(int i = 0; i < 3; ++i){
                 if(boardArray[i][j] == "X"){
                     ++counter;
+                }else
+                if(boardArray[i][j] == "O"){
+                    counter += 4;
                 }
             }
             if(counter == 3){
                 return "X";
             }else
-            if(counter == 0){
-                return "Y";
+            if(counter == 12){
+                return "O";
             }else{
                 counter = 0;
             }
