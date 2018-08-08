@@ -2,20 +2,42 @@ import java.util.Random;
 import java.util.Scanner;
 
 //TODO: Play computer
-//TODO: Choose which player goes first
 
 public class ticTacToe{
 
     static String[][] boardArray = new String[4][4];
 
     public static void main(String args[]){
-        buildBoardArray();
-        printBoard();
+        init();
         playGame();
     }
 
+    public static void init(){
+        Object[] playerList = new Object[2];
+        String[] botNames = new String[]{"Twiki", "Hal", "Artoo"};
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter number of human players");
+        int playerCount = s.nextInt();
+        s.nextLine();
+        while(playerCount < 0 || playerCount > 2){
+            System.out.println("Oops! Please enter a number between 0 and 2");
+            playerCount = s.nextInt();
+        }
+        for(int i = 0; i < playerCount; ++i){
+            System.out.println("Please enter name for player " + (i + 1));
+            String playerName = s.nextLine();
+            playerList[i] = new player(true, playerName);
+        }
+        if(playerCount < 2){
+            for(int j = playerCount; j < 2; ++j){
+                playerList[j] = new player(false, botNames[j]);
+            }
+        }
+        buildBoardArray();
+        printBoard();
+    }
+
     public static void buildBoardArray(){
-        
         for(int i = 0; i < 3; ++i){
             for(int j = 0; j < 3; ++j){
                 boardArray[i][j] = " ";
