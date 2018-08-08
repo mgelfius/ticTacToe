@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 //TODO: Play computer
@@ -43,9 +44,9 @@ public class ticTacToe{
 
     public static void playGame(){
         boolean winner = false;
-        System.out.println("X goes first");
         String[] turn = new String[]{"X", "O"};
-        int whoseTurn = 0;
+        int whoseTurn = new Random().nextInt(2);
+        System.out.println(turn[whoseTurn] + " goes first");
         while(winner != true){
             Scanner s = new Scanner(System.in).useDelimiter("\\s");
             System.out.println("Enter your pick as a row followed by a column. Example: 2 2");
