@@ -4,11 +4,13 @@ public class player{
     String name;
 
     public player(boolean isHuman, String name){
-        
+        System.out.println("New player! Human = " + isHuman + ". Their name is " + name);
+        this.isHuman = isHuman;
+        this.name = name;
     }
 
     public void setHuman(boolean isHuman){
-        isHuman = this.isHuman;
+        this.isHuman = isHuman;
     }
 
     public boolean getHuman(){
@@ -16,7 +18,7 @@ public class player{
     }
 
     public void setName(String name){
-        name = this.name;
+        this.name = name;
     }
 
     public String getName(){

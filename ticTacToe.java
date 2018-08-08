@@ -1,11 +1,10 @@
 import java.util.Random;
 import java.util.Scanner;
 
-//TODO: Play computer
-
 public class ticTacToe{
 
     static String[][] boardArray = new String[4][4];
+    static player[] playerList = new player[2];
 
     public static void main(String args[]){
         init();
@@ -13,7 +12,6 @@ public class ticTacToe{
     }
 
     public static void init(){
-        Object[] playerList = new Object[2];
         String[] botNames = new String[]{"Twiki", "Hal", "Artoo"};
         Scanner s = new Scanner(System.in);
         System.out.println("Enter number of human players");
@@ -68,37 +66,64 @@ public class ticTacToe{
         boolean winner = false;
         String[] turn = new String[]{"X", "O"};
         int whoseTurn = new Random().nextInt(2);
-        System.out.println(turn[whoseTurn] + " goes first");
+        System.out.println(playerList[whoseTurn].getName() + " goes first");
         while(winner != true){
-            Scanner s = new Scanner(System.in).useDelimiter("\\s");
-            System.out.println("Enter your pick as a row followed by a column. Example: 2 2");
-            int row = s.nextInt();
-            int column = s.nextInt();
-            if(row > 0 && row <=3 && column > 0 && column <=3){
-                if(boardArray[column - 1][row - 1] == " "){
-                    boardArray[column - 1][row - 1] = turn[whoseTurn];
-                    if(whoseTurn == 0){
-                        ++whoseTurn;
+            if(playerList[whoseTurn].getHuman() == true){
+             Scanner s = new Scanner(System.in).useDelimiter("\\s");
+             System.out.println("Enter your pick as a row followed by a column. Example: 2 2");
+                int row = s.nextInt();
+                int column = s.nextInt();
+                if(row > 0 && row <=3 && column > 0 && column <=3){
+                    if(boardArray[column - 1][row - 1] == " "){
+                     boardArray[column - 1][row - 1] = turn[whoseTurn];
+                        if(whoseTurn == 0){
+                            ++whoseTurn;
+                        }else{
+                            --whoseTurn;
+                        }
+                        printBoard();
+                        System.out.println();
                     }else{
-                        --whoseTurn;
+                        System.out.println("Nice try, bucko! Somebody's in that spot.");
                     }
-                    printBoard();
+                    if(checkWinner() == "X" || checkWinner() == "O" || checkWinner() == "Tie"){
+                        winner = true;
+                        s.close();
+                    }
                 }else{
-                    System.out.println("Nice try, bucko! Somebody's in that spot.");
-                }
-                if(checkWinner() == "X" || checkWinner() == "O" || checkWinner() == "Tie"){
-                    winner = true;
-                    s.close();
+                    System.out.println("Oops! That's not a proper coordinate.");
                 }
             }else{
-                System.out.println("Oops! That's not a proper coordinate.");
+                int row = 2;
+                int column = 2;
+                while(boardArray[column][row] != " "){
+                    row = new Random().nextInt(3);
+                    column = new Random().nextInt(3);
+                }
+                boardArray[column][row] = turn[whoseTurn];
+                if(whoseTurn == 0){
+                    ++whoseTurn;
+                }else{
+                    --whoseTurn;
+                }       
+                printBoard();
+                System.out.println();
+                if(checkWinner() == "X" || checkWinner() == "O" || checkWinner() == "Tie"){
+                    winner = true;
+                }
             }
         }
         if(checkWinner() == "Tie"){
             System.out.println("It's a tie!");
         }
         else{
-            System.out.println(checkWinner() + " is the winner!");
+            if(checkWinner() == "X"){
+                System.out.println(playerList[0].getName() + " is the winner!");
+            }else
+            if(checkWinner() == "O"){
+                System.out.println(playerList[1].getName() + " is the winner!");
+            }
+           
         }
     }
 
@@ -152,4 +177,5 @@ public class ticTacToe{
         }
         return "Tie";
     }
+
 }
