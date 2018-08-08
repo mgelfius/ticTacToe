@@ -12,7 +12,7 @@ public class ticTacToe{
     }
 
     public static void init(){
-        String[] botNames = new String[]{"Twiki", "Hal", "Artoo"};
+        String[] botNames = new String[]{"Twiki", "Hal", "Artoo", "Optimus", "Johnny", "Marvin"};
         Scanner s = new Scanner(System.in);
         System.out.println("Enter number of human players");
         int playerCount = s.nextInt();
@@ -28,7 +28,11 @@ public class ticTacToe{
         }
         if(playerCount < 2){
             for(int j = playerCount; j < 2; ++j){
-                playerList[j] = new player(false, botNames[j]);
+                int chooseBotName = new Random().nextInt(botNames.length);
+                while(j > 0 && botNames[chooseBotName] == playerList[j - 1].getName()){
+                    chooseBotName = new Random().nextInt(botNames.length);
+                }
+                playerList[j] = new player(false, botNames[chooseBotName]);
             }
         }
         buildBoardArray();
